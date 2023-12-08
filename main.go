@@ -1,7 +1,11 @@
+/*
+Copyright © 2023 pooulad <pooulad@gmail.com>
+
+*/
 package main
 
-import "fmt"
+import "github.com/pooulad/gomber/cmd"
 
-func main(){
-	fmt.Println("ready to go again")
+func main() {
+	cmd.Execute()
 }
