@@ -2,6 +2,6 @@ package pkg
 
 import "fmt"
 
-func Execute(mobileNumber int) {
+func SendSms(mobileNumber int) {
 	fmt.Println("execute program here")
 }
