@@ -6,6 +6,8 @@ import (
 	"log"
 	"os"
 	"strconv"
+
+	"github.com/pooulad/gomber/util"
 )
 
 func Execute() {
@@ -18,7 +20,7 @@ func Execute() {
 		log.Fatal(err)
 	}
 
-	fmt.Fprint(os.Stdout, string(banner)+"\n")
+	fmt.Fprint(os.Stdout, util.Colorize(util.ColorGreen, string(banner))+"\n")
 	fmt.Fprint(os.Stdout, string(usage)+"\n")
 
 	scanner := bufio.NewScanner(os.Stdin)
