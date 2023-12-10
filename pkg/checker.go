@@ -61,9 +61,15 @@ loop:
 	if len(inputs) < 2 {
 		log.Fatal("Please insert the inputs correctly")
 	}
-	SendSms(inputs[0], inputs[1])
-
 	if err := scanner.Err(); err != nil {
 		log.Fatal("Some problem happend in scanner")
 	}
+	if !util.IsNumberValid(fmt.Sprint(inputs[0])) {
+		log.Fatal("Mobile number is not valid")
+	}
+	if inputs[1] >= 1000 {
+		log.Fatal("Number of requests must be less than 1000")
+	}
+
+	SendSms(inputs[0], inputs[1])
 }
