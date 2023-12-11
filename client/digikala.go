@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"sync"
 )
 
 type OtpBody struct {
@@ -13,7 +14,7 @@ type OtpBody struct {
 	Username string `json:"username"`
 }
 
-func DigikalaRequest(mobileNumber int, m map[string]bool) {
+func DigikalaRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
 	data := fmt.Sprintf(`{"backUrl":"/","otp_call" : "false","username":"%d"}`, mobileNumber)
 	var jsonStr = []byte(data)
 
@@ -22,7 +23,6 @@ func DigikalaRequest(mobileNumber int, m map[string]bool) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0")
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -31,6 +31,9 @@ func DigikalaRequest(mobileNumber int, m map[string]bool) {
 
 	if resp.StatusCode == 200 {
 		m["digikala"] = true
+		return
 	}
 	m["digikala"] = false
+
+	defer wg.Done()
 }
