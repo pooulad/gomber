@@ -4,48 +4,34 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/google/uuid"
 	"log"
 	"net/http"
 	"sync"
 )
 
-type Attributes struct {
-	Type        string `json:"type"`
-	ShowMsg     string `json:"show_msg"`
-	Country     string `json:"country"`
-	CountryCode string `json:"country_code"`
-	Number      string `json:"number"`
-	Flag        string `json:"flag"`
-}
-
 type FilimoBody struct {
-	Type       string     `json:"type"`
-	ID         string     `json:"id"`
-	Attributes Attributes `json:"attributes"`
+	Mobile string `json:"mobile"`
+	Guid   string `json:"guid"`
 }
 
 func newFilimo(mobileNumber int) *FilimoBody {
+	id := uuid.New()
 	return &FilimoBody{
-		Type: "country_code",
-		ID:   "",
-		Attributes: Attributes{
-			Type:        "success",
-			ShowMsg:     "yes",
-			Country:     "iran",
-			CountryCode: "98",
-			Number:      fmt.Sprintf("(98)%d", mobileNumber),
-			Flag:        "https://www.filimo.com/public/public/images/flags/iran.png",
-		},
+		Mobile: fmt.Sprintf("%d", mobileNumber),
+		Guid:   id.String(),
 	}
 }
 
 func FilimoRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
+	defer wg.Done()
+
 	targetBody := newFilimo(mobileNumber)
 	jsonByte, err := json.Marshal(targetBody)
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	client := &http.Client{}
 	req, err := http.NewRequest("POST", "https://filimo.com/api/fa/v1/user/Authenticate/country_code", bytes.NewBuffer(jsonByte))
 	if err != nil {
@@ -63,5 +49,5 @@ func FilimoRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
 	}
 	m["filimo"] = false
 
-	defer wg.Done()
+	fmt.Println("filimo")
 }

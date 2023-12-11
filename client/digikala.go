@@ -24,6 +24,8 @@ func newDigikala(mobileNumber int) *DigikalaBody {
 }
 
 func DigikalaRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
+	defer wg.Done()
+	
 	targetBody := newDigikala(mobileNumber)
 	jsonByte, err := json.Marshal(targetBody)
 	if err != nil {
@@ -47,5 +49,5 @@ func DigikalaRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
 	}
 	m["digikala"] = false
 
-	defer wg.Done()
+	fmt.Println("digikala")
 }
