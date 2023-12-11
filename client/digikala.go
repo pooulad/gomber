@@ -2,24 +2,36 @@ package client
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"sync"
 )
 
-type OtpBody struct {
+type DigikalaBody struct {
 	BackUrl  string `json:"backUrl"`
 	OtpCall  bool   `json:"otp_call"`
 	Username string `json:"username"`
 }
 
-func DigikalaRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
-	data := fmt.Sprintf(`{"backUrl":"/","otp_call" : "false","username":"%d"}`, mobileNumber)
-	var jsonStr = []byte(data)
+func newDigikala(mobileNumber int) *DigikalaBody {
+	return &DigikalaBody{
+		BackUrl:  "/",
+		OtpCall:  false,
+		Username: fmt.Sprintf("%d", mobileNumber),
+	}
+}
 
+func DigikalaRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
+	targetBody := newDigikala(mobileNumber)
+	jsonByte, err := json.Marshal(targetBody)
+	if err != nil {
+		log.Fatal(err)
+	}
+	
 	client := &http.Client{}
-	req, err := http.NewRequest("POST", "https://api.digikala.com/v1/user/authenticate/", bytes.NewBuffer(jsonStr))
+	req, err := http.NewRequest("POST", "https://api.digikala.com/v1/user/authenticate/", bytes.NewBuffer(jsonByte))
 	if err != nil {
 		log.Fatal(err)
 	}
