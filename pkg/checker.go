@@ -67,7 +67,7 @@ loop:
 	if !util.IsNumberValid(fmt.Sprint(inputs[0])) {
 		log.Fatal("Mobile number is not valid")
 	}
-	if inputs[1] >= 1000 {
+	if inputs[1] > 100 {
 		log.Fatal("Number of requests must be less than 1000")
 	}
 
