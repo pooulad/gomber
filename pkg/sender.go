@@ -23,6 +23,7 @@ func SendSms(mobileNumber int, amount int) {
 		client.SnappFoodRequest,
 		client.DigiPayRequest,
 		client.Gishe7Request,
+		client.PindoRequest,
 	}
 
 	wg.Add(len(clients))
