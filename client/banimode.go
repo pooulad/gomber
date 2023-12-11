@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"sync"
@@ -15,7 +16,7 @@ type BanimodeBody struct {
 
 func newBanimode(mobileNumber int) *BanimodeBody {
 	return &BanimodeBody{
-		Phone: fmt.Sprintf("%d", mobileNumber),
+		Phone: fmt.Sprintf("0%d", mobileNumber),
 	}
 }
 
@@ -28,16 +29,17 @@ func BanimodeRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
 		log.Fatal(err)
 	}
 
-	client := &http.Client{}
-	req, err := http.NewRequest("POST", "https://mobapi.banimode.com/api/v2/auth/request", bytes.NewBuffer(jsonByte))
+	resp, err := http.Post("https://mobapi.banimode.com/api/v2/auth/request", "application/json", bytes.NewBuffer([]byte(jsonByte)))
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
+	defer resp.Body.Close()
 
-	resp, err := client.Do(req)
+	b, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println(string(b))
 
 	if resp.StatusCode == 200 {
 		m["banimode"] = true

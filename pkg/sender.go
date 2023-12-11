@@ -22,7 +22,7 @@ func SendSms(mobileNumber int, amount int) {
 		client.BanimodeRequest,
 	}
 
-	wg.Add(2)
+	wg.Add(len(clients))
 	for _, fn := range clients {
 		go fn(mobileNumber, clientsStatus, wg)
 		// wg.Done()
