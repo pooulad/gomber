@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/google/uuid"
-	"log"
 	"net/http"
 	"sync"
 )
@@ -29,18 +28,18 @@ func FilimoRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
 	targetBody := newFilimo(mobileNumber)
 	jsonByte, err := json.Marshal(targetBody)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(fmt.Errorf(err.Error()))
 	}
 
 	client := &http.Client{}
 	req, err := http.NewRequest("POST", "https://filimo.com/api/fa/v1/user/Authenticate/country_code", bytes.NewBuffer(jsonByte))
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(fmt.Errorf(err.Error()))
 	}
 
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(fmt.Errorf(err.Error()))
 	}
 
 	if resp.StatusCode == 200 {

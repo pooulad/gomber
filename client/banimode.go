@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"sync"
 )
@@ -26,18 +25,18 @@ func BanimodeRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
 	targetBody := newBanimode(mobileNumber)
 	jsonByte, err := json.Marshal(targetBody)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(fmt.Errorf(err.Error()))
 	}
 
 	resp, err := http.Post("https://mobapi.banimode.com/api/v2/auth/request", "application/json", bytes.NewBuffer([]byte(jsonByte)))
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(fmt.Errorf(err.Error()))
 	}
 	defer resp.Body.Close()
 
 	b, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(fmt.Errorf(err.Error()))
 	}
 	fmt.Println(string(b))
 

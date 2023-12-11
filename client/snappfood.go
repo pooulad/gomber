@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"sync"
 )
@@ -26,19 +25,19 @@ func SnappFoodRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
 	targetBody := newSnappFood(mobileNumber)
 	jsonByte, err := json.Marshal(targetBody)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(fmt.Errorf(err.Error()))
 	}
 	fmt.Println(string(jsonByte))
 
 	resp, err := http.Post("https://snappfood.ir/mobile/v2/user/loginMobileWithNoPass?lat=35.774&long=51.418&optionalClient=WEBSITE&client=WEBSITE&deviceType=WEBSITE&appVersion=8.1.1&UDID=2e10eb3c-5df3-4a6c-ba16-398448e4fd76&locale=fa", "application/json", bytes.NewBuffer([]byte(jsonByte)))
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(fmt.Errorf(err.Error()))
 	}
 	defer resp.Body.Close()
 
 	b, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(fmt.Errorf(err.Error()))
 	}
 	fmt.Println(string(b))
 
