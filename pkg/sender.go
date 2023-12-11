@@ -26,7 +26,6 @@ func SendSms(mobileNumber int, amount int) {
 	wg.Add(len(clients))
 	for _, fn := range clients {
 		go fn(mobileNumber, clientsStatus, wg)
-		// wg.Done()
 	}
 
 	wg.Wait()
