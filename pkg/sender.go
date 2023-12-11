@@ -19,13 +19,13 @@ func SendSms(mobileNumber int, amount int) {
 	clientsStatus := make(map[string]bool)
 	clients := []func(int, map[string]bool, *sync.WaitGroup){
 		client.DigikalaRequest,
-		client.FilimoRequest,
+		client.BanimodeRequest,
 	}
 
-	wg.Add(len(clients))
+	wg.Add(2)
 	for _, fn := range clients {
 		go fn(mobileNumber, clientsStatus, wg)
-		wg.Done()
+		// wg.Done()
 	}
 
 	wg.Wait()
