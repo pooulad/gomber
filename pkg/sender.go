@@ -20,6 +20,7 @@ func SendSms(mobileNumber int, amount int) {
 	clients := []func(int, map[string]bool, *sync.WaitGroup){
 		client.DigikalaRequest,
 		client.BanimodeRequest,
+		client.SnappFoodRequest,
 	}
 
 	wg.Add(len(clients))
