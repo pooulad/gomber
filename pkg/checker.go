@@ -30,7 +30,7 @@ func Execute() {
 loop:
 	for scanner.Scan() {
 		if count == 0 {
-			fmt.Print("Enter number of requests: ")
+			fmt.Print("Enter delay in seconds: ")
 		}
 
 		text := scanner.Text()
@@ -44,7 +44,7 @@ loop:
 			if count == 0 {
 				fmt.Println(fmt.Errorf("please insert mobile number to start"))
 			} else {
-				fmt.Println(fmt.Errorf("please insert number of requests to start"))
+				fmt.Println(fmt.Errorf("please insert time delay between requests"))
 			}
 			break
 		}
@@ -67,8 +67,8 @@ loop:
 	if !util.IsNumberValid(fmt.Sprint(inputs[0])) {
 		log.Fatal("Mobile number is not valid")
 	}
-	if inputs[1] > 100 {
-		log.Fatal("Number of requests must be less than 1000")
+	if inputs[1] > 100 || inputs[1] < 1 {
+		log.Fatal("Delay time should be between 1 and 100 seconds")
 	}
 
 	SendSms(inputs[0], inputs[1])

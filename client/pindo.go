@@ -31,7 +31,7 @@ func PindoRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
 
 	resp, err := http.Post("https://api.pindo.ir/v1/user/login-register/", "application/json", bytes.NewBuffer([]byte(jsonByte)))
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer resp.Body.Close()
 

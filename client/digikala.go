@@ -35,7 +35,7 @@ func DigikalaRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
 
 	resp, err := http.Post("https://api.digikala.com/v1/user/authenticate/", "application/json", bytes.NewBuffer([]byte(jsonByte)))
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer resp.Body.Close()
 

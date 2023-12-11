@@ -8,7 +8,7 @@ import (
 	"github.com/pooulad/gomber/client"
 )
 
-func SendSms(mobileNumber int, amount int) {
+func SendSms(mobileNumber int, delay int) {
 	wg := &sync.WaitGroup{}
 
 	start := time.Now()
@@ -28,7 +28,7 @@ func SendSms(mobileNumber int, amount int) {
 
 	wg.Add(len(clients))
 	for _, fn := range clients {
-		time.Sleep(time.Second * 1)
+		time.Sleep(time.Second * time.Duration(delay))
 		fn(mobileNumber, clientsStatus, wg)
 	}
 

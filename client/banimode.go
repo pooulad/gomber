@@ -31,7 +31,7 @@ func BanimodeRequest(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
 
 	resp, err := http.Post("https://mobapi.banimode.com/api/v2/auth/request", "application/json", bytes.NewBuffer([]byte(jsonByte)))
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer resp.Body.Close()
 

@@ -13,7 +13,7 @@ func Gishe7Request(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
 
 	resp, err := http.Post(fmt.Sprintf("https://gisheh7.ir:8080/api/user/send-token?mobile=0%d", mobileNumber), "application/json", nil)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer resp.Body.Close()
 
@@ -29,7 +29,7 @@ func Gishe7Request(mobileNumber int, m map[string]bool, wg *sync.WaitGroup) {
 	} else if resp.StatusCode == 403 {
 		resp, err := http.Post(fmt.Sprintf("https://gisheh7.ir:8080/api/user/register?mobile=0%d", mobileNumber), "application/json", nil)
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 		defer resp.Body.Close()
 
