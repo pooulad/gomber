@@ -1,7 +1,10 @@
 # gomber💣
-🚨Concurrent sms bomber writen with go<br/>
+🚨Concurrent sms bomber writen with go for iranian users(+98 country code)<br/>
 
 ⚠️WARNING: The use of this program for malicious purposes is the responsibility of the individual<br/>
+
+🧑🏼‍💻Developer Suggestion: Use this app to prank your friends<br/>
+
 
 ![gomber_demo](https://github.com/pooulad/gomber/blob/main/image/project_picture.png)<br/>
 
