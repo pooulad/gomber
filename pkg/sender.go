@@ -33,6 +33,7 @@ func SendSms(mobileNumber int, delay int) {
 		client.BitpinRequest,
 		client.ArzplusRequest,
 		client.AbanththerRequest,
+		client.PoolenoRequest,
 	}
 
 	wg.Add(len(clients))
