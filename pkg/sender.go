@@ -38,6 +38,7 @@ func SendSms(mobileNumber int, delay int) {
 		client.AzkiRequest,
 		client.SheypoorRequest,
 		client.Khodro45Request,
+		client.HamrahMechanicRequest,
 	}
 
 	wg.Add(len(clients))
