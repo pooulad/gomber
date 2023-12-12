@@ -24,6 +24,7 @@ func SendSms(mobileNumber int, delay int) {
 		client.DigiPayRequest,
 		client.Gishe7Request,
 		client.PindoRequest,
+		client.DivarRequest,
 	}
 
 	wg.Add(len(clients))
