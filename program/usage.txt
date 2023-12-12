@@ -1,4 +1,4 @@
 Usage : 
-Enter mobile target: [target number]
-Enter delay in seconds: [delay]
--------------------------------------
+Enter mobile target: [target number] -> example: 09199999999
+Enter delay in seconds: [delay] -> example: 3
+-------------------------------------------------------------
