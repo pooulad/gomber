@@ -20,15 +20,6 @@ git clone https://github.com/pooulad/gomber.git
 ```bash
 go run ./cmd/main.go
 ```
-Or download exe file to start:<br/>
-
-1.<br/>
-<a href="https://github.com/pooulad/gomber/blob/main/bin/gomber">download gomber</a><br/>
-
-2.<br/>
-```bash
-./gomber
-```
 
 ## List of clients
 
