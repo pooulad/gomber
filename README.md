@@ -18,6 +18,10 @@ git clone https://github.com/pooulad/gomber.git
 ```
 2.<br/>
 ```bash
+cd ./gomber
+```
+3.<br/>
+```bash
 go run ./cmd/main.go
 ```
 
